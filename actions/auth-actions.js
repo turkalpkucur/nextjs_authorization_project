@@ -18,7 +18,7 @@ export async function signup(prevState, formData) {
 
     if (Object.keys(errors).length > 0) {
         return {
-            errors: errors
+            errors
         }
     }
     //store it in the database (create a new user)

@@ -20,7 +20,8 @@ export default function AuthForm() {
         <input type="password" name="password" id="password" />
       </p>
       {formState.errors && (<ul id="form-errors">
-        {Object.keys((formState.errors).map((error) => <li key={error}>{formState.errors[error]}</li>))}
+        {/* {Object.keys((formState.errors).map((error) => <li key={error}>{formState.errors[error]}</li>))} */}
+        hata var..
       </ul>)}
       <p>
         <button type="submit">
