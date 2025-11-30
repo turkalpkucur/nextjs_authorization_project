@@ -1,5 +1,6 @@
 'use server';
 
+import { createAuthSession } from "@/lib/auth";
 import { hashUserPassword } from "@/lib/hash";
 import { createUser } from "@/lib/user";
 import { redirect } from "next/navigation";
@@ -25,19 +26,20 @@ export async function signup(prevState, formData) {
             errors
         }
     }
-    const hashedPassword= hashUserPassword(password);
+    const hashedPassword = hashUserPassword(password);
 
-    try{
-    createUser(email,hashedPassword);
-    }catch(error){
-        if(error.code==='SQLITE_CONSTRAINT_UNIQUE'){
-            return{
-                errors:{
-                    email:"It seems like an account for the chosen email already exists.."
+    try {
+        const id = createUser(email, hashedPassword);
+        createAuthSession();
+        redirect('/training');
+    } catch (error) {
+        if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+            return {
+                errors: {
+                    email: "It seems like an account for the chosen email already exists.."
                 }
             }
         }
         throw error;
     }
-redirect('/training');
 }
