@@ -2,12 +2,12 @@
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 
-import {auth, signup } from '@/actions/auth-actions';
+import { auth, signup } from '@/actions/auth-actions';
 
 export default function AuthForm({ mode }) {
 
 
-  const [formState, formAction] = useFormState(auth.bind(null,mode), {});
+  const [formState, formAction] = useFormState(auth.bind(null, mode), {});
   return (
     <form id="auth-form" action={formAction}>
       <div>
@@ -21,10 +21,14 @@ export default function AuthForm({ mode }) {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" id="password" />
       </p>
-      {formState.errors && (<ul id="form-errors">
-        {/* {Object.keys((formState.errors).map((error) => <li key={error}>{formState.errors[error]}</li>))} */}
-        hata var..
-      </ul>)}
+      {
+      formState.errors && formState.errors.email && (<ul id="form-errors">
+           <li>{formState.errors.email}</li> 
+      </ul>
+      )
+      
+      
+      }
       <p>
         <button type="submit">
           {mode === 'login' ? 'Login' : 'Create Account'}
